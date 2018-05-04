@@ -1,7 +1,7 @@
 <template>
   <div id="Home" >
     <table style="align-content: center" width="380px">
-      <tr style="height: 150px;">
+      <tr style="height: 140px;">
         <td>
           <img style="height: 50px" src="../assets/1.png"/><br/>
           <a href="" style="text-align: center">签到</a>
@@ -11,7 +11,7 @@
           <a href="" style="text-align: center">请假</a>
         </td>
       </tr>
-      <tr style="height: 150px">
+      <tr style="height: 140px">
         <td>
           <img style="height: 50px" src="../assets/6.png"/><br/>
           <a href="" style="text-align: center">课程</a>
@@ -26,7 +26,10 @@
 </template>
 
 <script>
+  import LoadMore from "../../node_modules/vux/src/components/load-more/index.vue";
+
   export default {
+    components: {LoadMore},
     name:'Home'
   }
 </script>

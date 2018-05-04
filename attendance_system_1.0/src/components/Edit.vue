@@ -19,9 +19,12 @@
 
 <script>
   import MtButton from "../../node_modules/mint-ui/packages/button/src/button.vue";
+  import LoadMore from "../../node_modules/vux/src/components/load-more/index.vue";
 
   export  default {
-    components: {MtButton},
+    components: {
+      LoadMore,
+      MtButton},
     name:'edit'
   }
 </script>
