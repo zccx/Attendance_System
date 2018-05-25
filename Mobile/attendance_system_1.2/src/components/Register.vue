@@ -45,7 +45,7 @@
     },
     methods:{
       reBack:function () {
-        this.$router.push({path:'/login'})
+        this.$router.push({path:'/'})
       },
       saveUser() {
         var username = this.userName;
@@ -102,7 +102,7 @@
                 title:'恭喜！',
                 message: '注册成功！',
               });
-              this.$router.push({path:'/login'})
+              this.$router.push({path:'/'})
               /*注册成功之后再跳回登录页*/
               setTimeout(function(){
                 this.showRegister = false

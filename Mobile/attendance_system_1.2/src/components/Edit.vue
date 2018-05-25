@@ -1,7 +1,7 @@
 <template>
   <div id="edit">
     <mt-header fixed title="编辑个人信息" style="height: 50px;font-size: 18px;align-items: center">
-      <router-link to="/" slot="left">
+      <router-link to="/home" slot="left">
         <mt-button icon="back">返回</mt-button>
       </router-link>
     </mt-header>

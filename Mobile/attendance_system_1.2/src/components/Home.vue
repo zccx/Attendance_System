@@ -67,7 +67,7 @@
         this.$router.push({path: 'edit'})
       },
       exit:function () {
-        this.$router.push({path:'login'})
+        this.$router.push({path:'/'})
       }
     }
 
