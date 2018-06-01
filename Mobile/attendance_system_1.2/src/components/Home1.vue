@@ -24,7 +24,7 @@
       <tr style="height: 150px">
         <td>
           <img src="../assets/6.png"/><br/>
-          <router-link to="/" style="text-decoration: none"><a style="text-align: center">课程管理</a></router-link>
+          <router-link to="/Course_t" style="text-decoration: none"><a style="text-align: center">课程管理</a></router-link>
         </td>
         <td>
           <img src="../assets/5.png"/><br/>

@@ -7,6 +7,7 @@
     <mt-field label="邮箱" placeholder="请输入邮箱" type="email" v-model="mail"></mt-field>
     <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
     <mt-field label="确认密码" placeholder="请再输入一次密码" type="password" v-model="password1"></mt-field>
+    <mt-field label="学号" placeholder="请输入学号" type="text" v-model="sno"></mt-field>
     <mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phone"></mt-field>
     <mt-field label="姓名" placeholder="请输入姓名" type="text" v-model="name"></mt-field>
     <mt-field label="学校" placeholder="请输入学校" type="text" v-model="school"></mt-field>
@@ -31,6 +32,7 @@
         password1:'',
         mail:'',
         phone:'',
+        sno:'',
         name:'',
         school:'',
         academy:'',
@@ -52,6 +54,7 @@
         var password = this.password;
         var password1 =this.password1;
         var mail = this.mail;
+        var sno = this.sno;
         var phone = this.phone;
         var name = this.name;
         var school = this.school;
@@ -63,6 +66,7 @@
           username: username,
           password: password,
           mail: mail,
+          sno:sno,
           phone: phone,
           name: name,
           school: school,

@@ -29,7 +29,7 @@ router.post('/addStudent', (req, res) => {
       console.log(err);
     }
     if (result[0]===undefined) {
-      conn.query(sql, [params.username, params.password,params.sex,params.school,params.academy,params.major,params.grade,params.remark,params.mail,params.phone,params.name], function(err, result) {
+      conn.query(sql, [params.username, params.password,params.sno,params.sex,params.school,params.academy,params.major,params.grade,params.remark,params.mail,params.phone,params.name], function(err, result) {
         if (err) {
           console.log(err);
         }

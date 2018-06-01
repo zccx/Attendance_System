@@ -1,31 +1,32 @@
 <template>
-  <div id="Home" >
+  <div id="Home" style="width: 100%;margin: 0px;padding: 0px">
     <mt-header fixed title="首页-学生" style="height: 50px;font-size: 18px;align-items: center">
       <mt-button style="height: 30px"  slot="right" @click="exit"><a style="font-size: 15px">退出</a></mt-button>
       <!--<mt-button style="height: 30px"   icon="more" slot="right"></mt-button>-->
     </mt-header>
-    <mt-swipe style="height: 300px">
-      <mt-swipe-item><img src="../assets/home1.jpg"></mt-swipe-item>
-      <mt-swipe-item><img src="../assets/home2.jpg"></mt-swipe-item>
-      <mt-swipe-item><img src="../assets/home3.jpg"></mt-swipe-item>
-      <mt-swipe-item><img src="../assets/home4.jpg"></mt-swipe-item>
+    <div style="width: 100%">
+    <mt-swipe style="height: 300px;width: 100%">
+      <mt-swipe-item><img src="../assets/home1.jpg" style="width: 100%"></mt-swipe-item>
+      <mt-swipe-item><img src="../assets/home2.jpg" style="width: 100%"></mt-swipe-item>
+      <mt-swipe-item><img src="../assets/home3.jpg" style="width: 100%"></mt-swipe-item>
+      <mt-swipe-item><img src="../assets/home4.jpg" style="width: 100%"></mt-swipe-item>
     </mt-swipe>
-
-    <table style="width: 375px">
-      <tr style="height: 150px">
+    </div>
+    <table style="width: 100%">
+      <tr style="height: 120px">
         <td>
           <img src="../assets/1.png"/><br/>
-          <router-link to="/" style="text-decoration: none"><a  style="text-align: center">签到</a></router-link>
+          <router-link to="/Qiandao" style="text-decoration: none"><a  style="text-align: center">签到</a></router-link>
         </td>
         <td>
           <img src="../assets/3.png"/><br/>
-          <router-link to="/" style="text-decoration: none"><a style="text-align: center">请假</a></router-link>
+          <router-link to="/Qingjia" style="text-decoration: none"><a style="text-align: center">请假</a></router-link>
         </td>
       </tr>
-      <tr style="height: 150px">
+      <tr style="height: 120px">
         <td>
           <img src="../assets/6.png"/><br/>
-          <router-link to="/" style="text-decoration: none"><a style="text-align: center">课程</a></router-link>
+          <router-link to="/Course_stu" style="text-decoration: none"><a style="text-align: center">课程</a></router-link>
         </td>
         <td>
           <img src="../assets/5.png"/><br/>
@@ -74,6 +75,6 @@
   }
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -1,31 +1,31 @@
 <template>
-  <div>
+  <div style="margin-top: 5px">
     <!--<mt-header fixed title="Login" style="height: 50px;font-size: 18px;align-items: center;"></mt-header>-->
     <label style="font-size: 25px">Login</label><br/>
-    <img style="width: 375px;margin-top: 10px" src="../assets/qian.jpg"/>
-    <table style="width:375px;margin-top: 50px">
+    <img style="width: 100%;margin-top: 10px" src="../assets/qian.jpg"/>
+    <table style="width: 100%;margin-top: 50px">
       <tr style="height: 50px;">
-        <td style="width: 150px;">
-          <label style="font-size: 20px"><b>用户名：</b></label>
+        <td style="width: 40%;">
+          <label style="font-size: 18px"><b>用户名：</b></label>
         </td>
-        <td style="width: 225px;">
+        <td style="width: 60%;">
           <input type="text"  placeholder="请输入用户名" style="height: 30px;border: hidden" v-model="username">
         </td>
       </tr>
       <tr style="height: 50px;">
-        <td style="width: 150px;align-content:flex-end">
-          <label style="font-size: 20px"><b>密  码：</b></label>
+        <td style="">
+          <label style="font-size: 18px"><b>密  码：</b></label>
         </td>
-        <td style="width: 225px;">
+        <td style="">
           <input type="password" placeholder="请输入密码" style="height: 30px;border: hidden" v-model="password">
         </td>
       </tr>
       <tr style="height: 50px;">
-        <td style="width: 150px;align-content:flex-end">
-          <label style="font-size: 20px"><b>登录类型：</b></label>
+        <td style="">
+          <label style="font-size: 18px"><b>登录类型：</b></label>
         </td>
-        <td style="width: 225px;">
-          <select style="height: 40px;width: 180px;" v-model="userType" >
+        <td style="">
+          <select style="height: 30px;width: 180px" v-model="userType" >
             <option value="student" selected="selected" >我是学生</option>
             <option value="teacher">我是老师</option>
           </select>
@@ -55,7 +55,7 @@
       return{
         username:'',
         password:'',
-        userType:''
+        userType:'student'
       }
     },
     components: {

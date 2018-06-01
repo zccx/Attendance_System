@@ -7,7 +7,9 @@ import  VueResource  from 'vue-resource'
 import VueRouter from 'vue-router'
 import Mint from 'mint-ui';
 import { Button } from 'mint-ui';
+import picker from 'vue-3d-picker';
 
+Vue.component(picker.name, picker);
 Vue.component(Button.name, Button);
 Vue.use(Mint);
 Vue.use(VueResource)
