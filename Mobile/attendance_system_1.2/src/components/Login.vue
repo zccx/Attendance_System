@@ -26,8 +26,8 @@
         </td>
         <td style="">
           <select style="height: 30px;width: 180px" v-model="userType" >
-            <option value="student" selected="selected" >我是学生</option>
-            <option value="teacher">我是老师</option>
+            <option value="student" selected="selected" >学生</option>
+            <option value="teacher">老师</option>
           </select>
         </td>
       </tr>
@@ -50,19 +50,46 @@
   import MtButton from "../../node_modules/mint-ui/packages/button/src/button.vue";
   import MtHeader from "../../node_modules/mint-ui/packages/header/src/header.vue";
   import { Toast } from 'mint-ui';
+  import store from './store'
   export  default {
     data(){
       return{
         username:'',
         password:'',
-        userType:'student'
+        userType:'student',
+    //    items: store.fetch('user')
       }
     },
     components: {
       MtHeader,
       MtButton},
+//    watch: {
+//      items: {
+//        handler: function(val, oldVal) {
+//          store.save('user',val);
+//        },
+//        deep: true
+//      }
+//    },
     methods:{
       toLogin() {
+        console.log(this.items)
+        var myDate = new Date();
+        myDate.getYear();        //获取当前年份(2位)
+        myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+        myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+        myDate.getDate();        //获取当前日(1-31)
+        myDate.getDay();         //获取当前星期X(0-6,0代表星期天)
+        myDate.getTime();        //获取当前时间(从1970.1.1开始的毫秒数)
+        myDate.getHours();       //获取当前小时数(0-23)
+        myDate.getMinutes();     //获取当前分钟数(0-59)
+        myDate.getSeconds();     //获取当前秒数(0-59)
+        myDate.getMilliseconds();    //获取当前毫秒数(0-999)
+        myDate.toLocaleDateString();     //获取当前日期
+        var mytime=myDate.toLocaleTimeString();     //获取当前时间
+        var mytime1=myDate.toLocaleString();        //获取日期与时间
+        console.log(mytime);
+        console.log(mytime1);
         var username = this.username;
         var password =this.password;
         let data = {
@@ -90,7 +117,17 @@
                   message: '密码错误！',
                 });
               }else{
-                this.$router.push({path:'/home'})
+               let Userdata={
+                  name: this.username,
+                  pwd:this.password,
+                  userType:'student',
+                  islogin:true
+                }
+                //var loginname=res.data[0].username
+                store.save('User',Userdata)
+              //  this.items.push({'name': this.username});
+                this.$router.push({path:'/home',query:{name:this.username}})
+                console.log(name);
               }
             })
           }
@@ -108,7 +145,11 @@
                   message: '密码错误！',
                 });
               }else{
-                this.$router.push({path:'/home1'})
+                store.save('User',{'name': this.username,
+                  'pwd':this.password,
+                  'userType':'teacher',
+                  'islogin':true})
+                this.$router.push({path:'/home1',query:{name:this.username}})
               }
             })
           }

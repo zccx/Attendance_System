@@ -53,7 +53,7 @@
   import MtTabItem from "../../node_modules/mint-ui/packages/tab-item/src/tab-item.vue";
   import MtTabbar from "../../node_modules/mint-ui/packages/tabbar/src/tabbar.vue";
   import MtPopup from "../../node_modules/mint-ui/packages/popup/src/popup.vue";
-
+  import store from './store'
   export default {
     components: {
       MtPopup,
@@ -69,6 +69,10 @@
         this.$router.push({ path: 'edit' })
       },
       exit:function () {
+        let userdata=store.fetch('User')
+        userdata.islogin=false
+        console.log(userdata)
+        store.save('User',userdata)
         this.$router.push({path:'/'})
       }
     }

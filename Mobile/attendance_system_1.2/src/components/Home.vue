@@ -53,7 +53,7 @@
   import MtSwipe from "../../node_modules/mint-ui/packages/swipe/src/swipe.vue";
   import MtTabItem from "../../node_modules/mint-ui/packages/tab-item/src/tab-item.vue";
   import MtTabbar from "../../node_modules/mint-ui/packages/tabbar/src/tabbar.vue";
-
+  import store from './store'
   export default {
     components: {
       MtTabbar,
@@ -65,9 +65,16 @@
     name:'Home',
     methods:{
       clickFn:function () {
-        this.$router.push({path: 'edit'})
+        let query=this.$route.query;
+        var username=query.name;
+        console.log(username);
+        this.$router.push({path: 'edit',query:{name:username}})
       },
       exit:function () {
+        let userdata=store.fetch('User')
+        userdata.islogin=false
+        console.log(userdata)
+        store.save('User',userdata)
         this.$router.push({path:'/'})
       }
     }

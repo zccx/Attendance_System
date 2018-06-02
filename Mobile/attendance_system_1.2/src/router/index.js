@@ -10,6 +10,7 @@ import Qiandao from '../components/Qiandao.vue'
 import Qingjia from '../components/Qingjia.vue'
 import Course_stu from '../components/Course_stu.vue'
 import Course_t from '../components/Course_t.vue'
+import App from '../components/app.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +64,11 @@ export default new Router({
       path:'/Course_t',
       name:'Course_t',
       component:Course_t,
+    },
+    {
+      path:'/app',
+      name:'app',
+      component:App,
     },
   ],
   mode:'history'

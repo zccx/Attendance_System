@@ -71,7 +71,7 @@ router.post('/selectTeacher',(req,res)=>{
     }
     if (result[0]===undefined) {
 
-      res.send('-1')
+      res.send('-1');
     }else if(result[0].password!=params.password){
       res.send('0')
     }else{
