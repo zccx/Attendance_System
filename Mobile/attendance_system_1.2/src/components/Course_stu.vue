@@ -5,43 +5,50 @@
         <mt-button icon="back">返回</mt-button>
       </router-link>
     </mt-header>
-    <mt-field  label="工程实践" style="margin-top: 50px">
-      <ul>
-        <li >1-12周</li>
-        <li>周六</li>
-        <li>8:00-12:00</li>
-      </ul>
-    </mt-field>
-    <mt-field  label="工程英语">
-      <ul>
-        <li >1-15周</li>
-        <li>周四</li>
-        <li>14:00-15:40</li>
-      </ul>
-    </mt-field>
-    <mt-field  label="智能技术">
-      <ul>
-        <li >1-18周</li>
-        <li>周五</li>
-        <li>14:00-16:35</li>
-      </ul>
-    </mt-field>
-    <mt-field  label="自然辩证法">
-      <ul>
-        <li >1-12周</li>
-        <li>周一</li>
-        <li>15:50-17:30</li>
-      </ul>
-    </mt-field>
+    <!--<mt-field v-for="item in items" :label="item.name" style="margin-top: 50px"></mt-field>-->
+
+      <table style="margin-top: 50px">
+        <tr>
+          <td>课程名称</td>
+          <td>课程信息</td>
+        </tr>
+        <tr v-for="item in items" style="width: 100%;align-items: center">
+          <td style="width: 250px">{{item.name}}</td>
+          <td style="text-align: left;width: 200px">
+            <ul>
+            <li>{{item.sweek}}-{{item.eweek}}周</li>
+            <li>{{item.weekday}}</li>
+            <li>{{item.classroom}}</li>
+            <li>{{item.stime}}-{{item.etime}}</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
   </div>
 </template>
 <script>
  import MtField from "../../node_modules/mint-ui/packages/field/src/field.vue";
-
+ import store from './store'
  export default {
    components: {
      MtField
 
+   },
+   mounted(){
+     console.log("页面加载完成")
+     //var sno=store.fetch('User').sno;
+     let data={
+       sno:store.fetch('User').sno
+     }
+     this.$http.post('/api/user/selectCourse',data).then((res)=>{
+        this.items=res.data
+       console.log(this.items)
+     })
+   },
+   data(){
+     return {
+        items:[]
+     }
    },
    created() {
      this.rightButtons = [
@@ -63,8 +70,19 @@
    }
  }
 </script>
-<style>
+<style scoped>
 li{
-  height: 20px;
+  padding: 1px;
+}
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
 }
 </style>

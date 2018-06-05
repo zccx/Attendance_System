@@ -18,7 +18,7 @@
         </td>
         <td>
           <img src="../assets/3.png"/><br/>
-          <router-link to="/" style="text-decoration: none"><a style="text-align: center">请假管理</a></router-link>
+          <router-link to="/qingjia_t" style="text-decoration: none"><a style="text-align: center">请假管理</a></router-link>
         </td>
       </tr>
       <tr style="height: 150px">

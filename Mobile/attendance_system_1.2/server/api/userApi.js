@@ -18,6 +18,31 @@ var jsonWrite = function(res, ret) {
     res.json(ret);
   }
 };
+router.post('/addQingjia',(req,res)=>{
+  var sql=$sql.student.add_qingjia;
+  var params=req.body;
+  conn.query(sql,[params.name,params.sno,params.course,params.cno,params.qjday,params.reason,params.isapproval],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/selectCourse_t',(req,res)=>{
+  var sql_tno=$sql.teacher.select_course;
+  var params=req.body;
+  console.log(params)
+  conn.query(sql_tno,params.tno,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
 
 router.post('/addStudent', (req, res) => {
   var sql = $sql.student.add;
@@ -42,7 +67,18 @@ router.post('/addStudent', (req, res) => {
     }
   })
 });
-
+router.post('/selectQingjia',(req,res)=>{
+  var sql=$sql.teacher.select_qingjia;
+  var params=req.body;
+  conn.query(sql,[params.cno,params.isapproval],function (err,result) {
+    if(err){
+      console.log(err);
+    }
+    else {
+      jsonWrite(res,result);
+    }
+  })
+})
 router.post('/selectStudent',(req,res)=>{
   var sql_username=$sql.student.select_username;
   var params = req.body;
@@ -57,6 +93,48 @@ router.post('/selectStudent',(req,res)=>{
     }else if(result[0].password!=params.password){
       res.send('0')
     }else{
+      jsonWrite(res, result);
+    }
+  })
+})
+router.post('/selectCourse',(req,res)=>{
+  var sql_sno=$sql.student.select_course;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql_sno,params.sno,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result[0]===undefined) {
+      res.send('-1')
+    }else{
+      var i=0
+      while(i<result.length) {
+        switch (result[i].weekday) {
+          case 0:
+            result[i].weekday='星期天';
+            break;
+          case 1:
+            result[i].weekday='星期一';
+            break;
+          case 2:
+            result[i].weekday='星期二';
+            break;
+          case 3:
+            result[i].weekday='星期三';
+            break;
+          case 4:
+            result[i].weekday='星期四';
+            break;
+          case 5:
+            result[i].weekday='星期五';
+            break;
+          case 6:
+            result[i].weekday='星期六';
+            break;
+        }
+        i=i+1;
+      }
       jsonWrite(res, result);
     }
   })

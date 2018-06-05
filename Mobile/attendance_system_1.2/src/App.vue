@@ -5,8 +5,20 @@
 </template>
 
 <script>
+  import store from './components/store'
 export default {
-  name: 'App'
+  name: 'App',
+  mounted(){
+    var islogin=store.fetch('User').islogin;
+    var userType=store.fetch('User').userType;
+    if(islogin==true){
+      if(userType=='student'){
+        this.$router.push({path:'/home'})
+      }else if(userType=='teacher'){
+        this.$router.push({path:'/home1'})
+      }
+    }
+  }
 }
 </script>
 

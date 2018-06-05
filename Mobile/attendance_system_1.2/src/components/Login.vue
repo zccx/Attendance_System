@@ -73,23 +73,50 @@
 //    },
     methods:{
       toLogin() {
-        console.log(this.items)
+        var thisday=''
         var myDate = new Date();
         myDate.getYear();        //获取当前年份(2位)
         myDate.getFullYear();    //获取完整的年份(4位,1970-????)
         myDate.getMonth();       //获取当前月份(0-11,0代表1月)
         myDate.getDate();        //获取当前日(1-31)
-        myDate.getDay();         //获取当前星期X(0-6,0代表星期天)
+        var mytime1=myDate.getDay();         //获取当前星期X(0-6,0代表星期天)
         myDate.getTime();        //获取当前时间(从1970.1.1开始的毫秒数)
-        myDate.getHours();       //获取当前小时数(0-23)
-        myDate.getMinutes();     //获取当前分钟数(0-59)
+        var mytime2=myDate.getHours();       //获取当前小时数(0-23)
+        var mytime3=myDate.getMinutes();     //获取当前分钟数(0-59)
         myDate.getSeconds();     //获取当前秒数(0-59)
         myDate.getMilliseconds();    //获取当前毫秒数(0-999)
         myDate.toLocaleDateString();     //获取当前日期
         var mytime=myDate.toLocaleTimeString();     //获取当前时间
-        var mytime1=myDate.toLocaleString();        //获取日期与时间
-        console.log(mytime);
+        myDate.toLocaleString();        //获取日期与时间
+        switch (mytime1){
+          case 0:
+            thisday='星期天';
+            break;
+          case 1:
+            thisday='星期一';
+            break;
+          case 2:
+            thisday='星期二';
+            break;
+          case 3:
+            thisday='星期三';
+            break;
+          case 4:
+            thisday='星期四';
+            break;
+          case 5:
+            thisday='星期五';
+            break;
+          case 6:
+            thisday='星期六';
+            break;
+        }
+        if(mytime3<10){
+          console.log(thisday+" "+mytime2+":0"+mytime3);
+        }
         console.log(mytime1);
+        console.log(thisday);
+
         var username = this.username;
         var password =this.password;
         let data = {
@@ -117,16 +144,21 @@
                   message: '密码错误！',
                 });
               }else{
+                var sno=res.data[0].sno
+                var name=res.data[0].name
+                console.log(sno)
                let Userdata={
-                  name: this.username,
+                  name:name,
+                  username: this.username,
                   pwd:this.password,
+                  sno:sno,
                   userType:'student',
-                  islogin:true
+                  islogin:true,
                 }
                 //var loginname=res.data[0].username
                 store.save('User',Userdata)
               //  this.items.push({'name': this.username});
-                this.$router.push({path:'/home',query:{name:this.username}})
+                this.$router.push({path:'/home'})
                 console.log(name);
               }
             })
@@ -145,11 +177,14 @@
                   message: '密码错误！',
                 });
               }else{
-                store.save('User',{'name': this.username,
+                store.save('User',{
+                  'name':res.data[0].name,
+                  'tno':res.data[0].tno,
+                  'username': this.username,
                   'pwd':this.password,
                   'userType':'teacher',
                   'islogin':true})
-                this.$router.push({path:'/home1',query:{name:this.username}})
+                this.$router.push({path:'/home1'})
               }
             })
           }
