@@ -12,14 +12,14 @@
           <td>课程名称</td>
           <td>课程信息</td>
         </tr>
-        <tr v-for="item in items" style="width: 100%;align-items: center">
-          <td style="width: 250px">{{item.name}}</td>
-          <td style="text-align: left;width: 200px">
+        <tr v-for="(item,index) in data1" style="width: 100%;align-items: center">
+          <td style="width: 250px" v-for="value in item">{{value.name}}</td>
+          <td style="text-align: left;width: 200px" v-for="value in item">
             <ul>
-            <li>{{item.sweek}}-{{item.eweek}}周</li>
-            <li>{{item.weekday}}</li>
-            <li>{{item.classroom}}</li>
-            <li>{{item.stime}}-{{item.etime}}</li>
+            <li>{{value.sweek}}-{{value.eweek}}周</li>
+            <li>{{value.weekday}}</li>
+            <li>{{value.classroom}}</li>
+            <li>{{value.stime}}-{{value.etime}}</li>
             </ul>
           </td>
         </tr>
@@ -42,12 +42,24 @@
      }
      this.$http.post('/api/user/selectCourse',data).then((res)=>{
         this.items=res.data
-       console.log(this.items)
+       console.log(this.items.length)
+       var length=this.items.length;
+       //console.log(length)
+       for(var j=0;j<length;j++){
+         let data={
+           cno:this.items[j].cno
+         }
+         this.$http.post('/api/user/selectCourse_1',data).then((res)=>{
+           this.data1.push(res.data)
+         })
+       }
      })
+     console.log(this.data1)
    },
    data(){
      return {
-        items:[]
+        items:[],
+       data1:[]
      }
    },
    created() {

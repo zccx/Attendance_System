@@ -38,8 +38,37 @@ router.post('/selectCourse_t',(req,res)=>{
     if (err) {
       console.log(err);
     }
-    if(result) {
-      jsonWrite(res, result)
+    if (result[0]===undefined) {
+      res.send('-1')
+    }else{
+      var i=0
+      while(i<result.length) {
+        switch (result[i].weekday) {
+          case '0':
+            result[i].weekday='星期天';
+            break;
+          case '1':
+            result[i].weekday='星期一';
+            break;
+          case '2':
+            result[i].weekday='星期二';
+            break;
+          case '3':
+            result[i].weekday='星期三';
+            break;
+          case '4':
+            result[i].weekday='星期四';
+            break;
+          case '5':
+            result[i].weekday='星期五';
+            break;
+          case '6':
+            result[i].weekday='星期六';
+            break;
+        }
+        i=i+1;
+      }
+      jsonWrite(res, result);
     }
   })
 })
@@ -54,7 +83,7 @@ router.post('/addStudent', (req, res) => {
       console.log(err);
     }
     if (result[0]===undefined) {
-      conn.query(sql, [params.username, params.password,params.sno,params.sex,params.school,params.academy,params.major,params.grade,params.remark,params.mail,params.phone,params.name], function(err, result) {
+      conn.query(sql, [params.username, params.password,params.sno,params.phone], function(err, result) {
         if (err) {
           console.log(err);
         }
@@ -108,28 +137,43 @@ router.post('/selectCourse',(req,res)=>{
     if (result[0]===undefined) {
       res.send('-1')
     }else{
+      jsonWrite(res, result);
+    }
+  })
+})
+router.post('/selectCourse_1',(req,res)=>{
+  var sql_sno=$sql.student.select_course_1;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql_sno,params.cno,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result[0]===undefined) {
+      res.send('-1')
+    }else{
       var i=0
       while(i<result.length) {
         switch (result[i].weekday) {
-          case 0:
+          case '0':
             result[i].weekday='星期天';
             break;
-          case 1:
+          case '1':
             result[i].weekday='星期一';
             break;
-          case 2:
+          case '2':
             result[i].weekday='星期二';
             break;
-          case 3:
+          case '3':
             result[i].weekday='星期三';
             break;
-          case 4:
+          case '4':
             result[i].weekday='星期四';
             break;
-          case 5:
+          case '5':
             result[i].weekday='星期五';
             break;
-          case 6:
+          case '6':
             result[i].weekday='星期六';
             break;
         }

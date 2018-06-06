@@ -12,6 +12,7 @@ import Course_stu from '../components/Course_stu.vue'
 import Course_t from '../components/Course_t.vue'
 import App from '../components/app.vue'
 import Qingjia_t from '../components/Qingjia_t.vue'
+import Update from '../components/Update.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -75,6 +76,11 @@ export default new Router({
       path:'/qingjia_t',
       name:'qingjia_t',
       component:Qingjia_t,
+    },
+    {
+      path:'/update',
+      name:'update',
+      component:Update,
     },
   ],
   mode:'history'

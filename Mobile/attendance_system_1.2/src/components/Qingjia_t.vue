@@ -9,8 +9,9 @@
    <mt-cell-swipe
      :right="rightButtons"
      :title="(index+1).toString()"
-      v-for="(item,index) in data1">
-     <ul style="width: 250px" v-for='value in item'>
+      v-for="(item,index) in data1"
+      :key="item.tno">
+     <ul style="width: 250px" v-for='value in item' :key="value.id">
        <li>请假人：{{value.name}}</li>
        <li>学号：{{value.sno}}</li>
        <li>请假日期：{{value.qjday}}</li>
@@ -66,7 +67,7 @@
           content: '拒绝',
           style: { background: 'red', color: '#fff' },
           handler: () => {
-            this.$messagebox.prompt('请输入拒绝理由')
+            this.$messagebox.prompt('理由')
             //this.$messagebox()
           //  this.$toast('hello')
            // this.$http.post()

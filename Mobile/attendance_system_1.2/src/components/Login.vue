@@ -146,12 +146,14 @@
               }else{
                 var sno=res.data[0].sno
                 var name=res.data[0].name
+                var phone=res.data[0].phone
                 console.log(sno)
                let Userdata={
                   name:name,
                   username: this.username,
                   pwd:this.password,
                   sno:sno,
+                  phone:phone,
                   userType:'student',
                   islogin:true,
                 }
