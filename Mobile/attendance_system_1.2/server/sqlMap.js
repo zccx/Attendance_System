@@ -6,13 +6,19 @@ var sqlMap = {
   },
   student:{
     add:'insert into student(id,username,password,sno,phone) values (0,?,?,?,?)',
+    add_record:'insert into record(id,sno,name,classroom,course,cno,row,col,date,time) values (0,?,?,?,?,?,?,?,?,?)',
     update:'update student set name=?,sex=?,mail=?,school=?,academy=?,major=?,grade=?,remark=? where sno=?',
+    update_pwd:'update student set password=? where username=?',
     select_username:'SELECT * from student where username=? ',
     select_course:'SELECT * from course_stu where sno=?',
+    select_record:'SELECT * from record where cno=? and row=? and col=? and date=?',
+    select_record_1:'SELECT * from record where sno=?',
     select_course_1:'SELECT * from course where cno=?',
+    select_classroom:'SELECT * from classroom where classroom=?',
     add_qingjia:'insert into qingjia(id,name,sno,course,cno,qjday,reason,isapproval) values (0,?,?,?,?,?,?,?)'
   },
   teacher:{
+    update:'update teacher set phone=?,sex=?,mail=?,school=?,academy=?,remark=? where tno=?',
     select_username:'SELECT * from teacher where username=? ',
     select_course:'SELECT * from course where tno=? ',
     select_qingjia:'SELECT * from qingjia where cno=? and isapproval=?'

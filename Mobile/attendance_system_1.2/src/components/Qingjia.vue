@@ -8,9 +8,10 @@
     <div class="flex" style="margin-top: 50px">
       <div>
         <span>请假课程</span>
-        <select v-model="course">
-          <!--<option :value="item.name" v-for="(item,index) in items"  v-if="index == 1" selected>{{item.name}}</option>-->
-          <!--<option :value="item.name" v-for="(item,index) in items" v-if="index != 1">{{item.name}}</option>-->
+        <select v-on:change="indexSelect($event)">
+          <option disabled selected>请选择请假课程</option>
+          <!--<option :value="item.name" v-for="(item,index) in items"  v-if="index == 0" selected>{{item.name}}</option>-->
+          <!--<option :value="item.name" v-for="(item,index) in items" v-if="index != 0">{{item.name}}</option>-->
           <option :value="item.name" v-for="item in items">{{item.name}}</option>
         </select>
       </div>
@@ -47,7 +48,6 @@
     mounted(){
       console.log("页面加载完成")
       console.log(this.course)
-
       //var sno=store.fetch('User').sno;
       let data={
         sno:store.fetch('User').sno
@@ -78,6 +78,9 @@
       }
     },
     methods:{
+      indexSelect(event){
+        this.course=event.target.value
+      },
       qingjia(){
         var i=1;
         var cno

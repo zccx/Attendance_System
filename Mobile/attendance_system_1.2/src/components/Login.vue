@@ -138,7 +138,7 @@
                   title:'错误！',
                   message: '用户名不存在！',
                 });
-              }else if(res.data == 0){
+              }else if(res.data[0].password != this.password){
                 Toast({
                   title:'错误！',
                   message: '密码错误！',
@@ -173,7 +173,7 @@
                   title:'错误！',
                   message: '用户名不存在！',
                 });
-              }else if(res.data == 0){
+              }else if(res.data[0].password != this.password){
                 Toast({
                   title:'错误！',
                   message: '密码错误！',

@@ -15,7 +15,7 @@
     <!--<mt-field label="专业" placeholder="请输入专业" type="text" v-model="major"></mt-field>-->
     <!--<mt-field label="年级" placeholder="请输入年级" type="text" v-model="grade"></mt-field>-->
     <!--<mt-field label="备注"  type="textarea" rows="2" v-model="remark"></mt-field>-->
-    <mt-button style="width: 150px" type="primary" @click.native="saveUser">保存</mt-button>
+    <mt-button style="width: 150px;margin-top: 50px" type="primary" @click.native="saveUser">保存</mt-button>
     <mt-button style="width: 150px" type="default" @click="reBack()">取消</mt-button>
     </div>
     </div>

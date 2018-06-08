@@ -1,7 +1,7 @@
 <template>
   <div id="Home" >
     <mt-header fixed title="首页-教师" style="height: 50px;font-size: 18px;align-items: center">
-      <mt-button style="height: 30px"  slot="right" @click="exit"><a style="font-size: 15px">退出</a></mt-button>
+      <!--<mt-button style="height: 30px"  slot="right" @click="exit"><a style="font-size: 15px">退出</a></mt-button>-->
     </mt-header>
     <mt-swipe style="height: 300px">
       <mt-swipe-item><img src="../assets/home1.jpg"></mt-swipe-item>
@@ -38,7 +38,7 @@
         <img slot="icon" src="../assets/email-filling.png" >
         消息
       </mt-tab-item>
-      <mt-tab-item id="我的">
+      <mt-tab-item id="设置">
         <img slot="icon" src="../assets/account-filling.png" @click="clickFn">
         我的
       </mt-tab-item>

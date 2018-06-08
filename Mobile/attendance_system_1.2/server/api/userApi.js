@@ -18,10 +18,123 @@ var jsonWrite = function(res, ret) {
     res.json(ret);
   }
 };
+router.post('/update_pwd',(req,res)=>{
+  var sql=$sql.student.update_pwd;
+  var params=req.body;
+  conn.query(sql,[params.password,params.username],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/selectRe',(req,res)=>{
+  var sql=$sql.student.select_record;
+  var params=req.body;
+  conn.query(sql,[params.cno,params.row,params.col,
+    params.date],function (err,result){
+    if (err) {
+      console.log(err);
+    }
+    if(result[0]!=undefined) {
+      res.send('该座位已经有人')
+    }else{
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/selectRecord',(req,res)=>{
+  var sql=$sql.student.select_record_1;
+  var params=req.body;
+  conn.query(sql,params.sno,function (err,result){
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/addRecord',(req,res)=>{
+  var sql=$sql.student.add_record;
+  var params=req.body;
+  conn.query(sql,[params.sno,params.name,params.classroom, params.course,
+                  params.cno,params.row,params.col,
+                  params.date,params.time],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/selectClassroom',(req,res)=>{
+  var sql=$sql.student.select_classroom;
+  var params=req.body;
+  console.log(params)
+  conn.query(sql,params.classroom,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/updateStudent',(req,res)=>{
+  var sql=$sql.student.update;
+  var params=req.body;
+  conn.query(sql,
+    [params.name,
+      params.sex,
+      params.mail,
+      params.school,
+      params.academy,
+      params.major,
+      params.grade,
+      params.remark,
+      params.sno],function (err,result) {
+      if (err) {
+        console.log(err);
+      }
+      if(result) {
+        jsonWrite(res, result)
+      }
+    })
+})
+router.post('/updateTeacher',(req,res)=>{
+  var sql=$sql.teacher.update;
+  var params=req.body;
+  conn.query(sql,
+    [params.phone,
+      params.sex,
+      params.mail,
+      params.school,
+      params.academy,
+      params.remark,
+      params.tno],function (err,result) {
+      if (err) {
+        console.log(err);
+      }
+      if(result) {
+        jsonWrite(res, result)
+      }
+    })
+})
 router.post('/addQingjia',(req,res)=>{
   var sql=$sql.student.add_qingjia;
   var params=req.body;
-  conn.query(sql,[params.name,params.sno,params.course,params.cno,params.qjday,params.reason,params.isapproval],function (err,result) {
+  conn.query(sql,
+    [params.name,
+    params.sno,
+    params.course,
+    params.cno,
+    params.qjday,
+    params.reason,
+    params.isapproval],function (err,result) {
     if (err) {
       console.log(err);
     }
@@ -117,11 +230,8 @@ router.post('/selectStudent',(req,res)=>{
       console.log(err);
     }
     if (result[0]===undefined) {
-
      res.send('-1')
-    }else if(result[0].password!=params.password){
-      res.send('0')
-    }else{
+    }else {
       jsonWrite(res, result);
     }
   })
@@ -194,8 +304,6 @@ router.post('/selectTeacher',(req,res)=>{
     if (result[0]===undefined) {
 
       res.send('-1');
-    }else if(result[0].password!=params.password){
-      res.send('0')
     }else{
       jsonWrite(res, result);
     }

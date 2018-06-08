@@ -13,7 +13,8 @@ import Course_t from '../components/Course_t.vue'
 import App from '../components/app.vue'
 import Qingjia_t from '../components/Qingjia_t.vue'
 import Update from '../components/Update.vue'
-Vue.use(Router)
+import Xgpwd from '../components/Xgpwd.vue'
+import Exit from '../components/Exit.vue'
 
 export default new Router({
   routes: [
@@ -81,6 +82,16 @@ export default new Router({
       path:'/update',
       name:'update',
       component:Update,
+    },
+    {
+      path:'/xgpwd',
+      name:'xgpwd',
+      component:Xgpwd,
+    },
+    {
+      path:'/exit',
+      name:'exit',
+      component:Exit,
     },
   ],
   mode:'history'

@@ -7,7 +7,7 @@
     </mt-header>
     <!--<mt-field v-for="item in items" :label="item.name" style="margin-top: 50px"></mt-field>-->
 
-      <table style="margin-top: 50px">
+      <table style="margin-top: 50px" v-if="this.exist==true">
         <tr>
           <td>课程名称</td>
           <td>课程信息</td>
@@ -24,6 +24,9 @@
           </td>
         </tr>
       </table>
+    <div v-else style="margin-top: 200px">
+      <a style="font-size: 25px">暂无任何课程</a>
+    </div>
   </div>
 </template>
 <script>
@@ -32,7 +35,6 @@
  export default {
    components: {
      MtField
-
    },
    mounted(){
      console.log("页面加载完成")
@@ -41,17 +43,22 @@
        sno:store.fetch('User').sno
      }
      this.$http.post('/api/user/selectCourse',data).then((res)=>{
-        this.items=res.data
-       console.log(this.items.length)
-       var length=this.items.length;
-       //console.log(length)
-       for(var j=0;j<length;j++){
-         let data={
-           cno:this.items[j].cno
+       if(res.data==-1){
+        this.exist=false
+       }else {
+         this.exist=true
+         this.items=res.data
+         console.log(this.items.length)
+         var length=this.items.length;
+         //console.log(length)
+         for(var j=0;j<length;j++){
+           let data={
+             cno:this.items[j].cno
+           }
+           this.$http.post('/api/user/selectCourse_1',data).then((res)=>{
+             this.data1.push(res.data)
+           })
          }
-         this.$http.post('/api/user/selectCourse_1',data).then((res)=>{
-           this.data1.push(res.data)
-         })
        }
      })
      console.log(this.data1)
@@ -59,7 +66,8 @@
    data(){
      return {
         items:[],
-       data1:[]
+       data1:[],
+       exist:''
      }
    },
    created() {

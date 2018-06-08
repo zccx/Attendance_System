@@ -1,7 +1,7 @@
 <template>
   <div id="Home" style="width: 100%;margin: 0px;padding: 0px">
     <mt-header fixed title="首页-学生" style="height: 50px;font-size: 18px;align-items: center">
-      <mt-button style="height: 30px"  slot="right" @click="exit"><a style="font-size: 15px">退出</a></mt-button>
+      <!--<mt-button style="height: 30px"  slot="right" @click="exit"><a style="font-size: 15px">退出</a></mt-button>-->
       <!--<mt-button style="height: 30px"   icon="more" slot="right"></mt-button>-->
     </mt-header>
     <div style="width: 100%">
@@ -39,9 +39,9 @@
         <img slot="icon" src="../assets/email-filling.png" >
         消息
       </mt-tab-item>
-      <mt-tab-item id="我的">
-        <img slot="icon" src="../assets/account-filling.png" @click="clickFn">
-        我的
+      <mt-tab-item id="设置">
+        <img slot="icon" src="../assets/set.png" @click="clickFn">
+        设置
       </mt-tab-item>
     </mt-tabbar>
   </div>
@@ -65,10 +65,10 @@
     name:'Home',
     methods:{
       clickFn:function () {
-        let query=this.$route.query;
-        var username=query.name;
-        console.log(username);
-        this.$router.push({path: 'edit',query:{name:username}})
+//        let query=this.$route.query;
+//        var username=query.name;
+//        console.log(username);
+        this.$router.push({path: 'edit'})
       },
       exit:function () {
         let userdata=store.fetch('User')
