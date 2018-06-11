@@ -63,10 +63,10 @@
         reason:'',
         course:'请选择请假课程',
         calendar3:{
-          display:"2018/06/04",
+          display:"2018/7/1",
           show:false,
-          zero:true,
-          value:[2018,6,4], //默认日期
+         // zero:true,
+          value:[2018,7,1], //默认日期
           lunar:true, //显示农历
           select:(value)=>{
             this.calendar3.show=false;

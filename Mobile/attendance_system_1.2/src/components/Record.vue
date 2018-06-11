@@ -12,7 +12,8 @@
       <tr style="background-color: #F7F7F7;height: 30px">
         <th>编号</th>
         <th>日期</th>
-        <th>时间</th>
+        <th>签到时间</th>
+        <th>签退时间</th>
         <th>教室</th>
         <th>行数</th>
         <th>列数</th>
@@ -21,6 +22,7 @@
       <tr v-for="(item,index) in items" style="height: 40px">
         <td>{{index+1}}</td>
         <td>{{item.date}}</td>
+        <td>{{item.time}}</td>
         <td>{{item.time}}</td>
         <td>{{item.classroom}}</td>
         <td>{{item.row}}</td>
@@ -47,6 +49,7 @@ import store from './store'
       let data={
         sno:store.fetch('User').sno
       }
+
       this.$http.post('/api/user/selectRecord',data).then((res)=>{
         this.items=res.data
       })

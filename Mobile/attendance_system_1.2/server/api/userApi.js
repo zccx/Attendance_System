@@ -67,6 +67,43 @@ router.post('/addRecord',(req,res)=>{
       console.log(err);
     }
     if(result) {
+
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/update_qj',(req,res)=>{
+  var sql=$sql.teacher.update_qj;
+  var params=req.body;
+  conn.query(sql,[params.ispass,params.refuse,params.id],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/select_stu',(req,res)=>{
+  var sql=$sql.teacher.select_stu;
+  var params=req.body;
+  conn.query(sql,params.cno,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/select_student',(req,res)=>{
+  var sql=$sql.student.select_studnet;
+  var params=req.body;
+  conn.query(sql,params.sno,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
       jsonWrite(res, result)
     }
   })
@@ -215,6 +252,9 @@ router.post('/selectQingjia',(req,res)=>{
   conn.query(sql,[params.cno,params.isapproval],function (err,result) {
     if(err){
       console.log(err);
+    }
+    else if(result[0]===undefined){
+        res.send("无")
     }
     else {
       jsonWrite(res,result);

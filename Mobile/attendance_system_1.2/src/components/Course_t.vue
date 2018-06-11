@@ -7,7 +7,12 @@
     </mt-header>
     <mt-field></mt-field>
     <mt-cell-swipe
-      :right="rightButtons"
+      :right="[
+              {content: '管理',style: {background:'#00BFFF', color: '#fff', textAlign: 'center'},
+               handler(){release(item)}},
+              {content: '删除',style: {background: 'red', color: '#fff' , textAlign: 'center'},
+               handler(){delete1(item)}}
+          ]"
       :title="item.name"
       v-for="item in items">
       <ul class="li">
@@ -58,6 +63,9 @@
     methods: {
       leftButtonHandler(evt) {
         console.log(123);
+      },
+      release(val){
+        this.$router.push({path:'/student',query:{cno:val.cno}})
       }
     }
   }

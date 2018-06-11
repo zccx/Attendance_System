@@ -6,19 +6,29 @@
     </router-link>
   </mt-header>
     <mt-cell-swipe></mt-cell-swipe>
+    <div v-if="this.data1.length!=0">
    <mt-cell-swipe
-     :right="rightButtons"
+     :right="[
+              {content: '通过',style: {background:'#00BFFF', color: '#fff', textAlign: 'center'},
+               handler(){release(item)}},
+              {content: '拒绝',style: {background: 'red', color: '#fff' , textAlign: 'center'},
+               handler(){delete1(item)}}
+          ]"
      :title="(index+1).toString()"
       v-for="(item,index) in data1"
       :key="item.tno">
-     <ul style="width: 250px" v-for='value in item' :key="value.id">
-       <li>请假人：{{value.name}}</li>
-       <li>学号：{{value.sno}}</li>
-       <li>请假日期：{{value.qjday}}</li>
-       <li>请假课程：{{value.course}}</li>
-       <li>请假理由：{{value.reason}}</li>
+     <ul style="width: 250px" >
+       <li>请假人：{{item.name}}</li>
+       <li>学号：{{item.sno}}</li>
+       <li>请假日期：{{item.qjday}}</li>
+       <li>请假课程：{{item.course}}</li>
+       <li>请假理由：{{item.reason}}</li>
      </ul>
    </mt-cell-swipe>
+    </div>
+    <div style="margin-top: 200px" v-else>
+      <a style="font-size: 25px">暂无请假信息</a>
+    </div>
   </div>
 </template>
 <script>
@@ -37,45 +47,64 @@
       }
       this.$http.post('/api/user/selectCourse_t',data).then((res)=>{
         var length=res.data.length
-        console.log(length)
+        console.log("长度"+length)
         for(var i=0;i<length;i++){
           let data={
             cno:res.data[i].cno,
-            isapproval:'0'
+            isapproval:false
           }
-          console.log(i)
+          console.log("i="+i)
           this.$http.post('/api/user/selectQingjia',data).then((res)=>{
-            var _this=this
-            _this.data1.push(res.data);
+            console.log(res.data.length)
+            if(res.data!='无'){
+              for(var i=0;i<res.data.length;i++){
+                var _this=this
+                _this.data1.push(res.data[i]);
+              }
+            }
           })
+          console.log(this.data1)
         }
       })
-      console.log(this.data1)
+      console.log("this.data1="+this.data1.length)
     },
     created() {
-      this.rightButtons = [
-        {
-          content: '通过',
-          style: { background:'#00BFFF', color: '#fff' },
-          handler:()=>{
-            this.$messagebox.confirm('您确定通过吗？','提示').then(action=>{
 
-            })
-          }
-        },
-        {
-          content: '拒绝',
-          style: { background: 'red', color: '#fff' },
-          handler: () => {
-            this.$messagebox.prompt('理由')
-            //this.$messagebox()
-          //  this.$toast('hello')
-           // this.$http.post()
-          }
-        }
-      ];
     },
     methods:{
+      release(val){
+        this.$messagebox.confirm('您确定通过吗？','提示').then(action=> {
+          let data={
+            id:val.id,
+            refuse:'',
+            isapproval:true,
+            ispass:true
+          }
+          console.log(data)
+          this.$http.post('/api/user/update_qj',data).then((res)=>{
+                this.$router.push({path:'/blank'})
+              })
+          console.log(val)
+          console.info('release:' + val)
+        }).catch(()=>{
+          this.$toast('操作取消')
+        })
+      },
+      delete1(val){
+        this.$messagebox.prompt('理由').then((val1)=>{
+          let data={
+            id:val.id,
+            refuse:val1.value,
+            isapproval:true,
+            ispass:false
+          }
+          this.$http.post('/api/user/update_qj',data).then((res)=>{
+            this.$router.push({path:'/blank'})
+          })
+        }).catch(()=>{
+          this.$toast('操作取消')
+        })
+      },
     }
   }
 </script>

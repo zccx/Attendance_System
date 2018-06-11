@@ -35,10 +35,14 @@
       </tr>
     </table>
     <mt-tabbar>
+
       <mt-tab-item id="消息" >
+
         <img slot="icon" src="../assets/email-filling.png" >
         消息
+        <mt-badge type="error" size="small">10</mt-badge>
       </mt-tab-item>
+
       <mt-tab-item id="设置">
         <img slot="icon" src="../assets/set.png" @click="clickFn">
         设置

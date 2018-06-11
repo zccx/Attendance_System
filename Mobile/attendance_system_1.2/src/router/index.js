@@ -15,6 +15,8 @@ import Qingjia_t from '../components/Qingjia_t.vue'
 import Update from '../components/Update.vue'
 import Xgpwd from '../components/Xgpwd.vue'
 import Exit from '../components/Exit.vue'
+import Blank from '../components/Blank.vue'
+import Student from '../components/Student.vue'
 
 export default new Router({
   routes: [
@@ -93,6 +95,16 @@ export default new Router({
       name:'exit',
       component:Exit,
     },
+    {
+      path:'/blank',
+      name:'blank',
+      component:Blank,
+    },
+    {
+      path:'/student',
+      name:'student',
+      component:Student
+    }
   ],
   mode:'history'
 })
