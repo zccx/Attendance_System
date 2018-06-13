@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.Course">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="courseName" jdbcType="CHAR" property="coursename" />
+    <result column="ID" jdbcType="CHAR" property="id" />
+    <result column="dailyWeight" jdbcType="DOUBLE" property="dailyweight" />
+    <result column="finalWeight" jdbcType="DOUBLE" property="finalweight" />
+    <result column="picketLine" jdbcType="INTEGER" property="picketline" />
+    <result column="classSession" jdbcType="CHAR" property="classsession" />
+    <result column="classLocation" jdbcType="CHAR" property="classlocation" />
+    <result column="classDate" jdbcType="INTEGER" property="classdate" />
+    <result column="classOrder" jdbcType="CHAR" property="classorder" />
+    <result column="shape" jdbcType="CHAR" property="shape" />
+  </resultMap>
+</mapper>
