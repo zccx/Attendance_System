@@ -17,6 +17,9 @@ import Xgpwd from '../components/Xgpwd.vue'
 import Exit from '../components/Exit.vue'
 import Blank from '../components/Blank.vue'
 import Student from '../components/Student.vue'
+import Xiaoxi_stu from '../components/Xiaoxi_stu.vue'
+import Detail from '../components/Detail.vue'
+import Release from '../components/Release.vue'
 
 export default new Router({
   routes: [
@@ -104,7 +107,22 @@ export default new Router({
       path:'/student',
       name:'student',
       component:Student
-    }
+    },
+    {
+      path:'/xiaoxi_stu',
+      name:'xiaoxi_stu',
+      component:Xiaoxi_stu
+    },
+    {
+      path:'/detail',
+      name:'detail',
+      component:Detail
+    },
+    {
+      path:'/release',
+      name:'release',
+      component:Release
+    },
   ],
-  mode:'history'
+ // mode:'history'
 })

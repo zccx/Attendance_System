@@ -42,7 +42,7 @@
     <mt-button style="width: 150px;height: 40px;margin-left: 20px" type="default" @click="toRegister()">注册</mt-button>
     <br/>
     <div style="margin-top: 100px">
-      <router-link to="/" ><a style="text-align: center">其他方式登录</a></router-link>
+      <router-link to="/" ><a style="text-align: center" @click="toast()">其他方式登录</a></router-link>
     </div>
   </div>
 </template>
@@ -72,6 +72,11 @@
 //      }
 //    },
     methods:{
+      toast(){
+        Toast({
+          message:'功能还未实现！'
+        })
+      },
       toLogin() {
         var thisday=''
         var myDate = new Date();

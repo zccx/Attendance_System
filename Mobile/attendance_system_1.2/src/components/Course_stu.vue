@@ -37,8 +37,6 @@
      MtField
    },
    mounted(){
-     console.log("页面加载完成")
-     //var sno=store.fetch('User').sno;
      let data={
        sno:store.fetch('User').sno
      }
@@ -48,9 +46,7 @@
        }else {
          this.exist=true
          this.items=res.data
-         console.log(this.items.length)
          var length=this.items.length;
-         //console.log(length)
          for(var j=0;j<length;j++){
            let data={
              cno:this.items[j].cno
@@ -61,7 +57,6 @@
          }
        }
      })
-     console.log(this.data1)
    },
    data(){
      return {

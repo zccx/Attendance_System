@@ -21,6 +21,7 @@
     "vue-amap": "^0.5.7",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
+    "vue2-timepicker": "^0.1.4",
     "vux": "git://github.com/airyland/vux.git#v2"
   },
   "devDependencies": {

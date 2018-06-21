@@ -46,15 +46,12 @@
       calendar
     },
     mounted(){
-      console.log("页面加载完成")
-      console.log(this.course)
       //var sno=store.fetch('User').sno;
       let data={
         sno:store.fetch('User').sno
       }
       this.$http.post('/api/user/selectCourse',data).then((res)=>{
         this.items=res.data
-        console.log(this.items)
       })
     },
     data(){
@@ -99,7 +96,8 @@
           cno:cno,
           qjday:qjday,
           reason:this.reason,
-          isapproval:false
+          isapproval:false,
+          isread:false
         }
         console.log(data1)
         this.$http.post('/api/user/addQingjia',data1).then((res)=>{
@@ -109,9 +107,6 @@
           })
               this.$router.push({path:'/home'})
         })
-        console.log(this.course)
-        console.log(qjday)
-        console.log(this.reason)
       },
       openByDrop(e){
         this.calendar3.show=true;

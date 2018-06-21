@@ -6,12 +6,12 @@
       </router-link>
     </mt-header>
     <div style="margin-top: 50px">
-      <mt-field label="用户名"  v-model="userName" readonly></mt-field>
-      <mt-field label="学号" type="text" v-model="sno" readonly v-if="this.userType=='student'"></mt-field>
-      <mt-field label="工号" type="text" v-model="tno" readonly v-else></mt-field>
-      <mt-field label="手机号"  type="tel" v-model="phone" readonly v-if="this.userType=='student'"></mt-field>
+      <mt-field label="用户名"  v-model="userName" readonly disableClear></mt-field>
+      <mt-field label="学号" type="text" v-model="sno" readonly v-if="this.userType=='student'" disableClear></mt-field>
+      <mt-field label="工号" type="text" v-model="tno" readonly v-else disableClear></mt-field>
+      <mt-field label="手机号"  type="tel" v-model="phone" readonly v-if="this.userType=='student'" disableClear></mt-field>
       <mt-field label="姓名" placeholder="请输入姓名" type="text" v-model="name" v-if="this.userType=='student'"></mt-field>
-      <mt-field label="姓名" placeholder="请输入姓名" type="text" v-model="name" v-if="this.userType=='teacher'" readonly></mt-field>
+      <mt-field label="姓名" placeholder="请输入姓名" type="text" v-model="name" v-if="this.userType=='teacher'" readonly disableClear></mt-field>
       <mt-field label="性别" placeholder="请输入性别" type="text" v-model="sex"></mt-field>
       <mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phone" v-if="this.userType=='teacher'"></mt-field>
       <mt-field label="邮箱" placeholder="请输入邮箱" type="email" v-model="mail"></mt-field>

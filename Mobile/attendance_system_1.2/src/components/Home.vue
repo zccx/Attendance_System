@@ -35,13 +35,12 @@
       </tr>
     </table>
     <mt-tabbar>
-
       <mt-tab-item id="消息" >
-
-        <img slot="icon" src="../assets/email-filling.png" >
+        <img slot="icon" src="../assets/email-filling.png" @click="toXiaoxi">
         消息
-        <mt-badge type="error" size="small">10</mt-badge>
+        <mt-badge type="error" size="small" v-if="this.items.length!=0">{{this.items.length}}</mt-badge>
       </mt-tab-item>
+
 
       <mt-tab-item id="设置">
         <img slot="icon" src="../assets/set.png" @click="clickFn">
@@ -67,7 +66,27 @@
       MtHeader,
     },
     name:'Home',
+    data(){
+      return{
+        items:{}
+      }
+    },
+    mounted(){
+      let data={
+        sno:store.fetch('User').sno,
+        isapproval:true,
+        isread:false
+      }
+      console.log(data)
+      this.$http.post('/api/user/select_xx',data).then((res)=>{
+        this.items=res.data
+        console.log(res.data)
+      })
+    },
     methods:{
+      toXiaoxi:function(){
+        this.$router.push({path:'xiaoxi_stu'})
+      },
       clickFn:function () {
 //        let query=this.$route.query;
 //        var username=query.name;
@@ -87,5 +106,29 @@
 </script>
 
 <style scoped>
-
+  .wrap {
+    width:70px;
+    margin-bottom:-5px;
+    margin-left: 55px;
+    margin-right: -80px;
+    position:relative;
+  }
+  .img {
+    width:70px;
+    height:50px;
+    border:1px solid #000;
+  }
+  .notice {
+    width:18px;
+    height:18px;
+    line-height:20px;
+    font-size:8px;
+    color:#fff;
+    text-align:center;
+    background-color:#f00;
+    border-radius:50%;
+    position:absolute;
+    right:0px;
+    top:-10px;
+  }
 </style>

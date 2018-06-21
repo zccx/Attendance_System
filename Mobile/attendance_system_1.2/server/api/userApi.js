@@ -161,6 +161,93 @@ router.post('/updateTeacher',(req,res)=>{
       }
     })
 })
+router.post('/select_xx',(req,res)=>{
+  var sql=$sql.student.select_xx
+  var params=req.body;
+  conn.query(sql,[params.sno,params.isapproval,params.isread],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/select_Xx1',(req,res)=>{
+  var sql=$sql.student.select_Xx1
+  var params=req.body;
+  conn.query(sql,[params.sno,params.isapproval],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/select_detail',(req,res)=>{
+  var sql=$sql.student.select_detail
+  var params=req.body;
+  conn.query(sql,params.id,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+router.post('/add_release',(req,res)=>{
+  var sql=$sql.teacher.add_release
+  var sql_sel=$sql.teacher.select_rel
+  var params=req.body;
+  console.log(sql)
+  conn.query(sql_sel,[params.cno,params.date],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result[0]==undefined){
+      conn.query(sql,[params.cno,params.course,params.stime1,params.stime2,params.etime1,params.etime2,params.date],function (err,result) {
+        if (err) {
+          console.log(err);
+        }
+        if(result) {
+          jsonWrite(res, result)
+        }
+      })
+    }else{
+      res.send('-1')
+    }
+  })
+})
+router.post('/select_rel',(req,res)=>{
+  var sql=$sql.teacher.select_rel
+  var params=req.body;
+  console.log(params)
+  conn.query(sql,[params.cno,params.date],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result[0]!=undefined) {
+      jsonWrite(res, result)
+    }else{
+      res.send('-1')
+    }
+  })
+})
+router.post('/update_qj1',(req,res)=>{
+  var sql=$sql.student.update_qj
+  var params=req.body;
+  console.log(params)
+  conn.query(sql,[params.isread,params.id],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
 router.post('/addQingjia',(req,res)=>{
   var sql=$sql.student.add_qingjia;
   var params=req.body;
@@ -171,7 +258,8 @@ router.post('/addQingjia',(req,res)=>{
     params.cno,
     params.qjday,
     params.reason,
-    params.isapproval],function (err,result) {
+    params.isapproval,
+    params.isread],function (err,result) {
     if (err) {
       console.log(err);
     }

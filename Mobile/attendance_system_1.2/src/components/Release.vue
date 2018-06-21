@@ -1,165 +1,182 @@
 <template>
   <div>
-    <mt-header fixed title="签到" style="height: 50px;font-size: 18px;align-items: center">
-      <router-link to="/home" slot="left">
+  <div>
+    <mt-header fixed title="发布签到" style="height: 50px;font-size: 18px;align-items: center">
+      <router-link to="/home1" slot="left">
         <mt-button icon="back">返回</mt-button>
       </router-link>
     </mt-header>
+  </div>
     <div class="flex" style="margin-top: 50px">
       <div>
-        <span>签到课程</span>
-
-        <select v-on:change="indexSelect($event)" >
-          <option selected disabled v-if="this.cou.length!=0">请选择签到课程</option>
-          <option selected disabled v-else>暂无课程发布</option>
-          <option :value="item.cno"  v-for="item in cou">{{item.course}}</option>
+        <span>发布课程</span>
+        <select v-on:change="indexSelect($event)">
+          <option selected disabled>请选择发布课程</option>
+          <option :value="item.cno" v-for="item in items">{{item.cno}}-{{item.name}}</option>
         </select>
-
-        <!--<select v-else>-->
-          <!--<option selected disabled>{{this.cou_len}}</option>-->
+      </div>
+      <div>
+      <span>签到时间范围</span>
+      <input :value="this.stime1+'-'+this.stime2" readonly/>
+      </div>
+      <div>
+        <span>签退时间范围</span>
+        <input :value="this.etime1+'-'+this.etime2" readonly/>
+      </div>
+      <!--<div>-->
+        <!--<span>最早签到时间</span>-->
+        <!--<button @click.native="open()">选择时间</button>-->
+        <!--<input  value="00:00"  />-->
+        <!--<mt-datetime-picker-->
+          <!--ref="picker"-->
+          <!--type="time"-->
+          <!--v-model="value3"-->
+          <!--@confirm="handleChange">-->
+        <!--</mt-datetime-picker>-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<span>最晚签到时间</span>-->
+        <!--<select>-->
+          <!--<option></option>-->
         <!--</select>-->
-      </div>
-      <div>
-        <span>行数</span>
-        <select v-model="selectrow">
-          <option :value="index" v-for="index in row">{{index}}</option>
-        </select>
-      </div>
-      <div>
-        <span>列数(面向讲台从左往右)</span>
-        <select v-model="selectcol">
-          <option :value="index" v-for="index in col">{{index}}</option>
-        </select>
-      </div>
+      <!--</div>-->
+      <!--<div>-->
+        <!--<span>最早签退时间</span>-->
+        <!--<select>-->
+          <!--<option></option>-->
+        <!--</select>-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<span>最晚签退时间</span>-->
+        <!--<select>-->
+          <!--<option></option>-->
+        <!--</select>-->
+      <!--</div>-->
+
     </div>
-    <mt-button style="width: 150px;margin-top: 30px" type="primary" @click="qiandao()">签到</mt-button>
+    <mt-button style="width: 150px;margin-top: 30px" type="primary" @click="release()">发布</mt-button>
   </div>
+
 </template>
 <script>
   import { Toast } from 'mint-ui';
   import store from './store'
-  export default {
-    data(){
-      return{
-        row:0,
-        col:0,
-        cno:'',
-        date:'',
-        items:[],
-        it_len:'',
-        release:[],
-        rel_len:'',
-        cou_len:0,
-        cou:[],
-        citems:{},
-        classroom:'',
-        course:'',
-        selectrow:'1',
-        selectcol:'1',
-      }
-    },
-    mounted(){
-      let data={
-        sno:store.fetch('User').sno
-      }
-      this.$http.post('/api/user/selectCourse',data).then((res)=>{
-        this.items=res.data
-        var myDate=new Date()
-        this.date=myDate.toLocaleDateString()
-        for(var i=0;i<this.items.length;i++){
-          let data1={
-            cno:this.items[i].cno,
-            date:this.date
-          }
-          this.$http.post('/api/user/select_rel',data1).then((res)=>{
-            if(res.data!=-1){
-              this.cou[this.cou_len]=res.data[0]
-              this.cou_len=this.cou_len+1
-            }
-          })
-          console.log(this.cou)
-        }
-        this.cou_len=this.cou.length
-      })
+  import MtDatetimePicker from "../../node_modules/mint-ui/packages/datetime-picker/src/datetime-picker.vue";
 
-    },
-
-    methods: {
-      indexSelect(event){
-        console.log(event.target.value);
-        this.cno=event.target.value
-        let data={
-          cno:event.target.value
-        }
-        this.$http.post('/api/user/selectCourse_1',data).then((res)=>{
-          this.classroom=res.data[0].classroom
-          console.log(this.classroom)
-          let data2={
-            cno:event.target.value,
-            course:res.data[0].name
-          }
-          store.save('Class',data2)
-          let data1={
-            classroom:this.classroom
-          }
-          this.$http.post('/api/user/selectClassroom',data1).then((res)=>{
-            this.row=res.data[0].row
-            this.col=res.data[0].col
-          })
-        })
+export default {
+  components: {MtDatetimePicker},
+  data(){
+    return{
+      items:{},
+      date:'',
+      cno:'',
+      cname:'',
+      course:{
       },
-      qiandao(){
-        this.cno=store.fetch('Class').cno
-        for(var i=0;i<this.items.length;i++)
-        {
-             if(this.items[i].cno==this.cno){
-               this.course=this.items[i].name;
-               break;
-             }
-        }
-        var myDate=new Date();
-        var day=myDate.toLocaleDateString();     //获取当前日期
-        var hour=myDate.getHours();       //获取当前小时数(0-23)
-        var minu=myDate.getMinutes();     //获取当前分钟数(0-59)
-
-        let data1={
+      value3:'00:00',
+      stime1:'00:00',
+      stime2:'00:00',
+      etime1:'00:00',
+      etime2:'00:00'
+    }
+  },
+  mounted(){
+    let data={
+      tno:store.fetch('User').tno
+    }
+    this.$http.post('/api/user/selectCourse_t',data).then((res)=>{
+      this.items=res.data
+    })
+  },
+  methods:{
+    release(){
+        let data={
           cno:this.cno,
-          row:this.selectrow,
-          col:this.selectcol,
-          date:day,
+          course:this.cname,
+          stime1:this.stime1+":00",
+          stime2:this.stime2+":00",
+          etime1:this.etime1+":00",
+          etime2:this.etime2+":00",
+          date:this.date
         }
-        this.$http.post('/api/user/selectRe',data1).then((res)=>{
-          if(res.data=='该座位已经有人') {
+        this.$http.post('/api/user/add_release',data).then((res)=>{
+          if(res.data==-1){
             Toast({
-              title: "错误",
-              message: "该座位已经有人"
-            })
-          } else{
-            let data={
-              sno:store.fetch('User').sno,
-              name:store.fetch('User').name,
-              classroom:this.classroom,
-              course:this.course,
-              cno:this.cno,
-              row:this.selectrow,
-              col:this.selectcol,
-              date:day,
-              time:hour+":"+minu
-            }
-              this.$http.post('/api/user/addRecord',data).then((res)=>{
-                Toast({
-                  title:"正确",
-                  message:"签到成功！"
-                })
-                this.$router.push({path:'/home'})
-              })
-            }
+              title:'错误！',
+              message: '请不要重复发布！',
+            });
+          }else{
+            this.$router.push({path:'/home1'})
+            Toast({
+              title:'成功！',
+              message: '发布成功',
+            });
+          }
         })
+    },
+    indexSelect(e){
+      this.cno=event.target.value
+      let data={
+        cno:this.cno
       }
+      this.$http.post('/api/user/selectCourse_1',data).then((res)=> {
+        this.course = res.data[0]
+        var stime = new Date("2018/01/01 " + this.course.stime)
+        var etime = new Date("2018/01/01 " + this.course.etime)
+        var hour1 = stime.getHours()
+        var hour2 = etime.getHours()
+        var min1 = stime.getMinutes()
+        var min2 = etime.getMinutes()
+        var hour3, hour4, min3, min4
+
+        if (min1 >= 30) {
+          hour3 = hour1 + 1
+          min3 = min1 - 30
+          if (min3 == 0) {
+            min3 = '00'
+          }
+        } else {
+          hour3 = hour1
+          min3 = min1 + 30
+        }
+
+        if(min2 >=30) {
+          hour4=hour2+1
+          min4=min2-30
+          if(min4==0){
+            min4='00'
+          }
+        }else{
+          hour4=hour2
+          min4=min2+30
+        }
+        if (min1 < 30) {
+          hour1 = hour1 - 1
+          min1 = min1 + 30
+        } else {
+          min1 = min1 - 30
+          if (min1 == 0) {
+            min1 = '00'
+          }
+        }
+        if(min2==0){
+          min2='00'
+        }
+        this.stime1=hour1+':'+min1
+        this.etime1=hour2+':'+min2
+        this.stime2=hour3+':'+min3
+        this.etime2=hour4+':'+min4
+        var myDate=new Date()
+        this.cname=this.course.name
+        this.date=myDate.toLocaleDateString()
+        console.log(this.cname)
+      })
     },
   }
+}
 </script>
 <style scoped>
+
   .flex{
     box-sizing: border-box;
 
@@ -230,58 +247,5 @@
     opacity: 0;
     transform: translateY(-10px);
 
-  }
-
-  /*下拉框*/
-  .calendar-dropdown{
-    background: #fff;
-    position: absolute;
-    left:0;
-    top:0;
-    padding:20px;
-    border: 1px solid #eee;
-    border-radius: 2px;
-  }
-  .calendar-dropdown:before {
-    position: absolute;
-    left:30px;
-    top: -10px;
-    content: "";
-    border:5px solid rgba(0, 0, 0, 0);
-    border-bottom-color: #DEDEDE;
-  }
-  .calendar-dropdown:after {
-    position: absolute;
-    left:30px;
-    top: -9px;
-    content: "";
-    border:5px solid rgba(0, 0, 0, 0);
-    border-bottom-color: #fff;
-  }
-
-  /*弹出框*/
-  .calendar-dialog{
-    position: absolute;
-    left:0;
-    top:0;
-    right:0;
-    bottom:0;
-  }
-
-  .calendar-dialog-mask{
-    background:rgba(255,255,255,.5);
-    width:100%;
-    height:100%;
-  }
-
-  .calendar-dialog-body{
-    background: #fff;
-    position: absolute;
-    left:50%;
-    top:50%;
-    transform: translate(-50%,-50%);
-    padding:20px;
-    border: 1px solid #eee;
-    border-radius: 2px;
   }
 </style>

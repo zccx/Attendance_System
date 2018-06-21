@@ -14,7 +14,7 @@
       <tr style="height: 150px">
         <td>
           <img src="../assets/1.png"/><br/>
-          <router-link to="/" style="text-decoration: none"><a  style="text-align: center">随机点名</a></router-link>
+          <router-link to="/release" style="text-decoration: none"><a  style="text-align: center">发布签到</a></router-link>
         </td>
         <td>
           <div class="wrap">
@@ -45,8 +45,8 @@
         消息
       </mt-tab-item>
       <mt-tab-item id="设置">
-        <img slot="icon" src="../assets/account-filling.png" @click="clickFn">
-        我的
+        <img slot="icon" src="../assets/set.png" @click="clickFn">
+        设置
       </mt-tab-item>
     </mt-tabbar>
   </div>
@@ -81,13 +81,11 @@
       }
       this.$http.post('/api/user/selectCourse_t',data).then((res)=>{
         var length=res.data.length
-        console.log("长度"+length)
         for(var i=0;i<length;i++){
           let data={
             cno:res.data[i].cno,
             isapproval:false
           }
-          console.log("i="+i)
           this.$http.post('/api/user/selectQingjia',data).then((res)=>{
             var _this=this
             if(res.data!='无'){
@@ -99,7 +97,6 @@
           })
         }
       })
-      console.log("this.data1="+this.data1.length)
     },
     methods:{
       clickFn:function () {
@@ -108,7 +105,6 @@
       exit:function () {
         let userdata=store.fetch('User')
         userdata.islogin=false
-        console.log(userdata)
         store.save('User',userdata)
         this.$router.push({path:'/'})
       }

@@ -47,15 +47,12 @@
       }
       this.$http.post('/api/user/selectCourse_t',data).then((res)=>{
         var length=res.data.length
-        console.log("长度"+length)
         for(var i=0;i<length;i++){
           let data={
             cno:res.data[i].cno,
             isapproval:false
           }
-          console.log("i="+i)
           this.$http.post('/api/user/selectQingjia',data).then((res)=>{
-            console.log(res.data.length)
             if(res.data!='无'){
               for(var i=0;i<res.data.length;i++){
                 var _this=this
@@ -63,7 +60,6 @@
               }
             }
           })
-          console.log(this.data1)
         }
       })
       console.log("this.data1="+this.data1.length)
@@ -80,12 +76,9 @@
             isapproval:true,
             ispass:true
           }
-          console.log(data)
           this.$http.post('/api/user/update_qj',data).then((res)=>{
                 this.$router.push({path:'/blank'})
               })
-          console.log(val)
-          console.info('release:' + val)
         }).catch(()=>{
           this.$toast('操作取消')
         })

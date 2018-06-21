@@ -8,13 +8,14 @@
     <mt-field></mt-field>
     <mt-cell-swipe
       :right="[
-              {content: '管理',style: {background:'#00BFFF', color: '#fff', textAlign: 'center'},
+              {content: '查看',style: {background:'#00BFFF', color: '#fff', textAlign: 'center'},
                handler(){release(item)}},
               {content: '删除',style: {background: 'red', color: '#fff' , textAlign: 'center'},
                handler(){delete1(item)}}
           ]"
       :title="item.name"
-      v-for="item in items">
+      v-for="item in items"
+      :key="item.id">
       <ul class="li">
         <li>{{item.sweek}}-{{item.eweek}}周</li>
         <li>{{item.weekday}}</li>
@@ -35,12 +36,9 @@
       let data={
         tno:store.fetch('User').tno
       }
-      console.log(data)
       this.$http.post('/api/user/selectCourse_t',data).then((res)=>{
         this.items=res.data
-      //  console.log(this.items)
       })
-      console.log(this.items)
     },
     data(){
       return{
@@ -50,7 +48,7 @@
     created() {
       this.rightButtons = [
         {
-          content: '管理',
+          content: '查看',
           style: { background:'#00BFFF', color: '#fff' }
         },
         {
@@ -62,7 +60,6 @@
     },
     methods: {
       leftButtonHandler(evt) {
-        console.log(123);
       },
       release(val){
         this.$router.push({path:'/student',query:{cno:val.cno}})

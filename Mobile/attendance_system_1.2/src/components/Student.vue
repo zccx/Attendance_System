@@ -10,12 +10,12 @@
       <tr>
         <td>姓名</td>
         <td>学号</td>
-        <td>操作</td>
+        <td>电话</td>
       </tr>
-      <tr v-for="item in data1">
+      <tr v-for="(item,index) in data1">
         <td v-for="value in item">{{value.name}}</td>
         <td v-for="value in item">{{value.sno}}</td>
-        <td v-for="value in item"><button>点名</button></td>
+        <td v-for="value in item">{{value.phone}}</td>
       </tr>
     </table>
   </div>
@@ -27,7 +27,7 @@
     components: {MtCellSwipe},
     data(){
       return{
-        data1:[]
+        data1:[],
       }
     },
     mounted(){
@@ -41,10 +41,10 @@
           }
         this.$http.post('/api/user/select_student',data).then((res)=>{
             this.data1.push(res.data)
-             console.log(this.data1)
          })
         }
       })
+
     }
   }
 </script>

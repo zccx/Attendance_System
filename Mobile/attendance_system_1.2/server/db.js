@@ -1,9 +1,10 @@
 // 数据库连接配置
 module.exports = {
   mysql: {
-    host: 'localhost',
+    host: '39.108.12.197',
+    // 39.108.12.197
     user: 'root',
-    password: '168432',
+    password: '123456',
     database: 'qiandaosystem',
     port: '3306'
   }
