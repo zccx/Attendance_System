@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.MarkMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.Mark">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="MarkID" jdbcType="INTEGER" property="markid" />
+    <result column="ID" jdbcType="CHAR" property="id" />
+    <result column="courseName" jdbcType="VARCHAR" property="coursename" />
+    <result column="dailyScore" jdbcType="DOUBLE" property="dailyscore" />
+    <result column="finalScore" jdbcType="DOUBLE" property="finalscore" />
+    <result column="markreserve" jdbcType="CHAR" property="markreserve" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.PersonnelMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.Personnel">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="Ppassword" jdbcType="CHAR" property="ppassword" />
+    <result column="Pname" jdbcType="CHAR" property="pname" />
+    <result column="major" jdbcType="INTEGER" property="major" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="pclass" jdbcType="INTEGER" property="pclass" />
+  </resultMap>
+</mapper>
