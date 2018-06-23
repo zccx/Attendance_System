@@ -7,7 +7,7 @@
     </mt-header>
     <!--<mt-field v-for="item in items" :label="item.name" style="margin-top: 50px"></mt-field>-->
 
-      <table style="margin-top: 50px" v-if="this.exist==true">
+      <table style="margin-top: 50px" class=table14_1 v-if="this.exist==true">
         <tr>
           <td>课程名称</td>
           <td>课程信息</td>
@@ -89,15 +89,41 @@
 li{
   padding: 1px;
 }
-table, th , td  {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  padding: 5px;
+.table14_1 table {
+  width:100%;
+  margin:15px 0;
+  border:0;
 }
-table tr:nth-child(odd) {
-  background-color: #f1f1f1;
+.table14_1 th {
+  font-weight:bold;
+  background-color:#e7f6fe;
+  color:#57c5fe
 }
-table tr:nth-child(even) {
-  background-color: #ffffff;
+.table14_1,.table14_1 th,.table14_1 td {
+  font-size:1.0em;
+  text-align:center;
+  padding:4px;
+  border-collapse:collapse;
+}
+.table14_1 th,.table14_1 td {
+  border: 1px solid #ffffff;
+  border-width:1px
+}
+.table14_1 th {
+  border: 1px solid #e7f6fe;
+  border-width:1px 0 1px 0
+}
+.table14_1 td {
+  border: 1px solid #eeeeee;
+  border-width:1px 0 1px 0
+}
+.table14_1 tr {
+  border: 1px solid #ffffff;
+}
+.table14_1 tr:nth-child(odd){
+  background-color:#f7f7f7;
+}
+.table14_1 tr:nth-child(even){
+  background-color:#ffffff;
 }
 </style>

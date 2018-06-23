@@ -52,6 +52,7 @@
       }
       this.$http.post('/api/user/selectCourse',data).then((res)=>{
         this.items=res.data
+        console.log(res.data)
       })
     },
     data(){

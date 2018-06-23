@@ -78,6 +78,7 @@
         })
       },
       toLogin() {
+
         var thisday=''
         var myDate = new Date();
         myDate.getYear();        //获取当前年份(2位)

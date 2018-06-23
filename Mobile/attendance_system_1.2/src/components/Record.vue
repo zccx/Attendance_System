@@ -8,28 +8,21 @@
     <div v-if="this.items.length==0" style="margin-top: 200px">
       <a style="font-size: 25px">暂无任何签到记录</a>
     </div>
-    <table style="background-color:#fff;width: 100%;margin-top: 50px;" v-else>
-      <tr style="background-color: #F7F7F7;height: 30px">
-        <th>编号</th>
-        <th>日期</th>
-        <th>签到时间</th>
-        <th>签退时间</th>
-        <th>教室</th>
-        <th>行数</th>
-        <th>列数</th>
-        <th>课程</th>
-      </tr>
-      <tr v-for="(item,index) in items" style="height: 40px">
-        <td>{{index+1}}</td>
-        <td>{{item.date}}</td>
-        <td>{{item.time}}</td>
-        <td>{{item.time}}</td>
-        <td>{{item.classroom}}</td>
-        <td>{{item.row}}</td>
-        <td>{{item.col}}</td>
-        <td>{{item.course}}</td>
-      </tr>
-    </table>
+    <div v-else style="margin-top: 50px">
+      <mt-cell-swipe
+
+        :title="(index+1).toString()"
+        v-for="(item,index) in items"
+        :key="item.tno">
+        <ul style="width: 250px" >
+          <li>课程名称：{{item.course}}</li>
+          <li>教室：{{item.classroom}}</li>
+          <li>签到日期：{{item.date}}</li>
+          <li>签到位置：第{{item.row}}行，第{{item.col}}列</li>
+          <li>签到时间：{{item.time}}</li>
+        </ul>
+      </mt-cell-swipe>
+    </div>
   </div>
 </template>
 
@@ -56,6 +49,11 @@ import store from './store'
     }
   }
 </script>
-<style>
-
+<style scoped>
+  li{
+  list-style-type:none;
+  color: black;
+  text-align: left;
+    padding: 2px;
+}
 </style>

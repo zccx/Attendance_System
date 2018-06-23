@@ -34,7 +34,7 @@
         </td>
         <td>
           <img src="../assets/5.png"/><br/>
-          <router-link to="/record" style="text-decoration: none"><a style="text-align: center">签到记录</a></router-link>
+          <router-link to="/record_t" style="text-decoration: none"><a style="text-align: center">签到记录</a></router-link>
         </td>
       </tr>
     </table>

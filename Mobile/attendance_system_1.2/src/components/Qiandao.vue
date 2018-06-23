@@ -8,16 +8,11 @@
     <div class="flex" style="margin-top: 50px">
       <div>
         <span>签到课程</span>
-
         <select v-on:change="indexSelect($event)" >
           <option selected disabled v-if="this.cou.length!=0">请选择签到课程</option>
           <option selected disabled v-else>暂无课程发布</option>
-          <option :value="item.cno"  v-for="item in cou">{{item.course}}</option>
+          <option  :value="item.cno"  v-for="item in cou">{{item.course}}</option>
         </select>
-
-        <!--<select v-else>-->
-          <!--<option selected disabled>{{this.cou_len}}</option>-->
-        <!--</select>-->
       </div>
       <div>
         <span>行数</span>
@@ -41,10 +36,12 @@
   export default {
     data(){
       return{
+        flag:'',
         row:0,
         col:0,
         cno:'',
         date:'',
+        time:'',
         items:[],
         it_len:'',
         release:[],
@@ -72,31 +69,40 @@
             date:this.date
           }
           this.$http.post('/api/user/select_rel',data1).then((res)=>{
+            var _this=this
             if(res.data!=-1){
-              this.cou[this.cou_len]=res.data[0]
-              this.cou_len=this.cou_len+1
+              this.cou.push(res.data[0])
             }
           })
-          console.log(this.cou)
         }
-        this.cou_len=this.cou.length
+        console.log(this.cou)
       })
 
     },
 
     methods: {
       indexSelect(event){
-        console.log(event.target.value);
         this.cno=event.target.value
         let data={
           cno:event.target.value
         }
+        for(var i=0;i<this.cou.length;i++){
+          if(this.cno==this.cou[i].cno){
+            this.flag=i;
+            break;
+          }
+        }
+        console.log(this.flag)
         this.$http.post('/api/user/selectCourse_1',data).then((res)=>{
+
           this.classroom=res.data[0].classroom
-          console.log(this.classroom)
           let data2={
             cno:event.target.value,
-            course:res.data[0].name
+            course:res.data[0].name,
+            stime1:this.cou[this.flag].stime1,
+            stime2:this.cou[this.flag].stime2,
+            etime1:this.cou[this.flag].etime1,
+            etime2:this.cou[this.flag].etime2,
           }
           store.save('Class',data2)
           let data1={
@@ -121,31 +127,58 @@
         var day=myDate.toLocaleDateString();     //获取当前日期
         var hour=myDate.getHours();       //获取当前小时数(0-23)
         var minu=myDate.getMinutes();     //获取当前分钟数(0-59)
-
-        let data1={
-          cno:this.cno,
-          row:this.selectrow,
-          col:this.selectcol,
-          date:day,
+        if(hour<10)
+        {
+          hour='0'+hour
         }
-        this.$http.post('/api/user/selectRe',data1).then((res)=>{
-          if(res.data=='该座位已经有人') {
-            Toast({
-              title: "错误",
-              message: "该座位已经有人"
-            })
-          } else{
-            let data={
-              sno:store.fetch('User').sno,
-              name:store.fetch('User').name,
-              classroom:this.classroom,
-              course:this.course,
-              cno:this.cno,
-              row:this.selectrow,
-              col:this.selectcol,
-              date:day,
-              time:hour+":"+minu
-            }
+        if(minu<10)
+        {
+          minu='0'+minu
+        }
+        var time=hour+':'+minu+':00'
+        console.log(time)
+        console.log(this.cou[this.flag].stime1)
+        if(time<this.cou[this.flag].stime1){
+          Toast({
+            title:"错误",
+            message:"还未到签到时间！"
+          })
+        }else if(time>this.cou[this.flag].stime2){
+          Toast({
+            title:"错误",
+            message:"签到时间已过！"
+          })
+        }else{
+          let data1={
+            sno:store.fetch('User').sno,
+            cno:this.cno,
+            row:this.selectrow,
+            col:this.selectcol,
+            date:day,
+          }
+          this.$http.post('/api/user/selectRe',data1).then((res)=>{
+            if(res.data=='已经签到过'){
+              Toast({
+                title: "错误",
+                message: "请不要重复签到！"
+              })
+            }else if(res.data=='该座位已经有人') {
+              Toast({
+                title: "错误",
+                message: "该座位已经有人！"
+              })
+            } else{
+              let data={
+                sno:store.fetch('User').sno,
+                name:store.fetch('User').name,
+                classroom:this.classroom,
+                course:this.course,
+                cno:this.cno,
+                row:this.selectrow,
+                col:this.selectcol,
+                date:day,
+                time:hour+":"+minu
+              }
               this.$http.post('/api/user/addRecord',data).then((res)=>{
                 Toast({
                   title:"正确",
@@ -154,7 +187,9 @@
                 this.$router.push({path:'/home'})
               })
             }
-        })
+          })
+        }
+
       }
     },
   }

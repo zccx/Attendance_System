@@ -93,6 +93,7 @@ export default {
         let data={
           cno:this.cno,
           course:this.cname,
+          tno:store.fetch('User').tno,
           stime1:this.stime1+":00",
           stime2:this.stime2+":00",
           etime1:this.etime1+":00",

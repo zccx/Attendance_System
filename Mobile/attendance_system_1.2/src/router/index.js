@@ -20,6 +20,8 @@ import Student from '../components/Student.vue'
 import Xiaoxi_stu from '../components/Xiaoxi_stu.vue'
 import Detail from '../components/Detail.vue'
 import Release from '../components/Release.vue'
+import Record_t from '../components/Record_t.vue'
+import Qd_detail from '../components/Qiandao_detail.vue'
 
 export default new Router({
   routes: [
@@ -122,6 +124,16 @@ export default new Router({
       path:'/release',
       name:'release',
       component:Release
+    },
+    {
+      path:'/record_t',
+      name:'record_t',
+      component:Record_t
+    },
+    {
+      path:'/qd_detail',
+      name:'qd_detail',
+      component:Qd_detail
     },
   ],
  // mode:'history'

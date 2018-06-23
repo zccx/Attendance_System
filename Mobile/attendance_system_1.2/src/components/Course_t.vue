@@ -10,8 +10,6 @@
       :right="[
               {content: '查看',style: {background:'#00BFFF', color: '#fff', textAlign: 'center'},
                handler(){release(item)}},
-              {content: '删除',style: {background: 'red', color: '#fff' , textAlign: 'center'},
-               handler(){delete1(item)}}
           ]"
       :title="item.name"
       v-for="item in items"
@@ -45,19 +43,7 @@
         items:[]
       }
     },
-    created() {
-      this.rightButtons = [
-        {
-          content: '查看',
-          style: { background:'#00BFFF', color: '#fff' }
-        },
-        {
-          content: '删除',
-          style: { background: 'red', color: '#fff' },
-          handler: () => this.$messagebox('delete')
-        }
-      ];
-    },
+
     methods: {
       leftButtonHandler(evt) {
       },

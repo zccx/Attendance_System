@@ -6,11 +6,11 @@
       </router-link>
     </mt-header>
     <mt-cell-swipe></mt-cell-swipe>
-    <table style="width: 100%">
+    <table style="width: 100%" class=table14_1>
       <tr>
-        <td>姓名</td>
-        <td>学号</td>
-        <td>电话</td>
+        <td style="width: 25%">姓名</td>
+        <td style="width: 35%">学号</td>
+        <td style="width: 40%">电话</td>
       </tr>
       <tr v-for="(item,index) in data1">
         <td v-for="value in item">{{value.name}}</td>
@@ -49,15 +49,41 @@
   }
 </script>
 <style scoped>
-  table, th , td  {
-    border: 1px solid grey;
-    border-collapse: collapse;
-    padding: 5px;
+  .table14_1 table {
+    width:100%;
+    margin:15px 0;
+    border:0;
   }
-  table tr:nth-child(odd) {
-    background-color: #f1f1f1;
+  .table14_1 th {
+    font-weight:bold;
+    background-color:#e7f6fe;
+    color:#57c5fe
   }
-  table tr:nth-child(even) {
-    background-color: #ffffff;
+  .table14_1,.table14_1 th,.table14_1 td {
+    font-size:0.95em;
+    text-align:center;
+    padding:4px;
+    border-collapse:collapse;
+  }
+  .table14_1 th,.table14_1 td {
+    border: 1px solid #ffffff;
+    border-width:1px
+  }
+  .table14_1 th {
+    border: 1px solid #e7f6fe;
+    border-width:1px 0 1px 0
+  }
+  .table14_1 td {
+    border: 1px solid #eeeeee;
+    border-width:1px 0 1px 0
+  }
+  .table14_1 tr {
+    border: 1px solid #ffffff;
+  }
+  .table14_1 tr:nth-child(odd){
+    background-color:#f7f7f7;
+  }
+  .table14_1 tr:nth-child(even){
+    background-color:#ffffff;
   }
 </style>

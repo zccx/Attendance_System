@@ -32,16 +32,26 @@ router.post('/update_pwd',(req,res)=>{
 })
 router.post('/selectRe',(req,res)=>{
   var sql=$sql.student.select_record;
+  var sql_1=$sql.student.select_record_2;
   var params=req.body;
-  conn.query(sql,[params.cno,params.row,params.col,
-    params.date],function (err,result){
+  conn.query(sql_1,[params.sno,params.cno,params.date],function (err,result) {
     if (err) {
       console.log(err);
     }
     if(result[0]!=undefined) {
-      res.send('该座位已经有人')
+      res.send('已经签到过')
     }else{
-      jsonWrite(res, result)
+      conn.query(sql,[params.cno,params.row,params.col,
+        params.date],function (err,result){
+        if (err) {
+          console.log(err);
+        }
+        if(result[0]!=undefined) {
+          res.send('该座位已经有人')
+        }else{
+          jsonWrite(res, result)
+        }
+      })
     }
   })
 })
@@ -96,8 +106,20 @@ router.post('/select_stu',(req,res)=>{
     }
   })
 })
+router.post('/select_record',(req,res)=>{
+  var sql=$sql.teacher.select_record;
+  var params=req.body;
+  conn.query(sql,[params.cno,params.date],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    if(result) {
+      jsonWrite(res, result)
+    }
+  })
+})
 router.post('/select_student',(req,res)=>{
-  var sql=$sql.student.select_studnet;
+  var sql=$sql.student.select_student;
   var params=req.body;
   conn.query(sql,params.sno,function (err,result) {
     if (err) {
@@ -207,7 +229,7 @@ router.post('/add_release',(req,res)=>{
       console.log(err);
     }
     if(result[0]==undefined){
-      conn.query(sql,[params.cno,params.course,params.stime1,params.stime2,params.etime1,params.etime2,params.date],function (err,result) {
+      conn.query(sql,[params.cno,params.course,params.tno,params.stime1,params.stime2,params.etime1,params.etime2,params.date],function (err,result) {
         if (err) {
           console.log(err);
         }
@@ -360,6 +382,32 @@ router.post('/selectStudent',(req,res)=>{
     if (result[0]===undefined) {
      res.send('-1')
     }else {
+      jsonWrite(res, result);
+    }
+  })
+})
+router.post('/select_rel_tno',(req,res)=>{
+  var sql=$sql.teacher.select_rel_tno;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql,params.tno,function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+  else{
+      jsonWrite(res, result);
+    }
+  })
+})
+router.post('/select_qj',(req,res)=>{
+  var sql=$sql.teacher.select_qj;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql,[params.cno,params.date],function (err,result) {
+    if (err) {
+      console.log(err);
+    }
+    else{
       jsonWrite(res, result);
     }
   })
